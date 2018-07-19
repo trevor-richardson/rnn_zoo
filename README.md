@@ -1,5 +1,5 @@
 # rnn_zoo
-Test novel and important rnn architectures on baseline dataset SeqMNIST and pMNIST
+Test novel and important recurrent neural network architectures on baseline datasets SeqMNIST and pMNIST.
 
 Architectures tested include:
 * RNN
