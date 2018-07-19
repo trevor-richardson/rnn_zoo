@@ -6,12 +6,17 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import datasets, transforms
 from PIL import Image
-
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 seed = 1
 torch.manual_seed(seed)
 np.random.seed(seed)
 random.seed(seed)
+
+def view_mnist_image(image):
+    plt.imshow(image)
+    plt.show()
 
 class SequentialMNIST(Dataset):
 
@@ -98,6 +103,7 @@ class SequentialMNIST(Dataset):
         inp = inp.view(-1, 1)
         if self.permute:
             inp = inp[self.permute_ind]
+
 
         return inp, out
 
