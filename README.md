@@ -16,27 +16,32 @@ Architectures tested include:
 The following results are were generated using the architectures listed above. \
 Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0001 and batch 64.
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_acc.png" width="500">
+<p float="left">
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_acc.png" width="400" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_acc.png" width="400" />
+</p>
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_acc.png" width="500">
-
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_loss.png" width="500">
-
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_loss.png" width="500">
-
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_acc.png" width="500">
-
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_acc.png" width="500">
-
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_loss.png" width="425"\> <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="425"\>
-
-![alt-text-1](https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png) ![alt-text-2](https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png)
+---
 
 <p float="left">
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="100" />
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="100" />
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="100" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_loss.png" width="400" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_loss.png" width="400" />
 </p>
+
+---
+
+<p float="left">
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_acc.png" width="400" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_acc.png" width="400" />
+</p>
+
+---
+
+<p float="left">
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_loss.png" width="400" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="400" />
+</p>
+
 
 ## Running the code
 
