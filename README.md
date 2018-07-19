@@ -32,7 +32,11 @@ Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0
 
 ![alt-text-1](https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png) ![alt-text-2](https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png)
 
-
+<p float="left">
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="100" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="100" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="100" />
+</p>
 
 ## Running the code
 
