@@ -16,7 +16,6 @@ Architectures tested include:
 The following results are were generated using the architectures listed above.
 Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0001 and batch 64.
 
-<img src="https://github.com/trevor-richardson/educational_material/blob/master/visualizations/pca.gif" width="500">
 
 <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_acc.png" width="500">
 
