@@ -17,29 +17,29 @@ The following results are were generated using the architectures listed above. \
 Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0001 and batch 64.
 
 <p float="left">
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_acc.png" width="450" />
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_acc.png" width="450" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_acc.png" width="420" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_acc.png" width="420" />
 </p>
 
 ---
 
 <p float="left">
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_loss.png" width="450" />
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_loss.png" width="450" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_val_loss.png" width="420" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/smnist_train_loss.png" width="420" />
 </p>
 
 ---
 
 <p float="left">
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_acc.png" width="450" />
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_acc.png" width="450" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_acc.png" width="420" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_acc.png" width="420" />
 </p>
 
 ---
 
 <p float="left">
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_loss.png" width="450" />
-  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="450" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_loss.png" width="420" />
+  <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="420" />
 </p>
 
 
