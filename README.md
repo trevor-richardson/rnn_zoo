@@ -30,6 +30,7 @@ Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0
 
 <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_val_loss.png" width="425"\> <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png" width="425"\>
 
+![alt-text-1](https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png) ![alt-text-2](https://github.com/trevor-richardson/rnn_zoo/blob/master/results/psmnist_train_loss.png)
 
 
 
