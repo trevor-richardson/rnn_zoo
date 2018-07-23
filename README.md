@@ -1,7 +1,7 @@
 # rnn_zoo
-Test novel and important recurrent neural network architectures on baseline datasets SeqMNIST and pMNIST.
+This repository tests various recurrent neural network architectures on baseline datasets SeqMNIST and pMNIST. The network architectures chosen were those deemed to be the most effective currently available.
 
-Architectures tested include:
+Those tested include:
 * **RNN**
 
  &nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/rnn.png" width="300" />
@@ -35,7 +35,7 @@ Architectures tested include:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="370" />
 
 ## Results
-The following results are were generated using the architectures listed above. \
+The following results are generated using the architectures listed above. \
 Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0001 and batch 64.
 
 <p float="left">
@@ -73,8 +73,8 @@ Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0
 
 ### Installing
 
-Update filepath in config.ini to where you've downloaded the repository.
-Packages needed to run the code.
+Update base_dir in config.ini with the absolute path to the current directory. <br/>
+Packages needed to run the code include:
 * numpy
 * python3
 * PyToch
