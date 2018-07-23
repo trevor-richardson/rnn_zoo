@@ -12,27 +12,27 @@ Architectures tested include:
 
 * **GRU** - https://arxiv.org/pdf/1406.1078v3.pdf
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/gru.png" width="640" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/gru.png" width="640" />
 
 * **IRNN** - https://arxiv.org/abs/1504.00941
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/irnn.png" width="320" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/irnn.png" width="320" />
 
 * **Peephole LSTM** - https://ieeexplore.ieee.org/document/861302/
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/plstm.png" width="350" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/plstm.png" width="450" />
 
 * **UGRNN** - https://arxiv.org/pdf/1611.09913.pdf
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/ugrnn.png" width="400" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/ugrnn.png" width="380" />
 
 * **Intersection RNN** - https://arxiv.org/pdf/1611.09913.pdf
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/intersectionrnn.png" width="300" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/intersectionrnn.png" width="380" />
 
 * **IndRNN** - https://arxiv.org/pdf/1803.04831.pdf
 
-<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="300" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="380" />
 
 ## Results
 The following results are were generated using the architectures listed above. \
