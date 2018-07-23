@@ -3,13 +3,22 @@ Test novel and important recurrent neural network architectures on baseline data
 
 Architectures tested include:
 * RNN
+<div lang="latex">1+sin(x)^2+3</div>
 * LSTM - http://www.bioinf.jku.at/publications/older/2604.pdf
+<div lang="latex">1+sin(x)^2+3</div>
 * GRU - https://arxiv.org/pdf/1406.1078v3.pdf
+<div lang="latex">1+sin(x)^2+3</div>
 * IRNN - https://arxiv.org/abs/1504.00941
+<div lang="latex">1+sin(x)^2+3</div>
 * Peephole LSTM - https://ieeexplore.ieee.org/document/861302/
+<div lang="latex">1+sin(x)^2+3</div>
 * UGRNN - https://arxiv.org/pdf/1611.09913.pdf
+<div lang="latex">1+sin(x)^2+3</div>
 * Intersection RNN - https://arxiv.org/pdf/1611.09913.pdf
+<div lang="latex">1+sin(x)^2+3</div>
 * IndRNN - https://arxiv.org/pdf/1803.04831.pdf
+<div lang="latex">1+sin(x)^2+3</div>
+
 
 
 ## Results
