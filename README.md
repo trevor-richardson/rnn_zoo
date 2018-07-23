@@ -3,7 +3,7 @@ Test novel and important recurrent neural network architectures on baseline data
 
 Architectures tested include:
 * RNN
-<div lang="latex">1+sin(x)^2+3</div>
+<div lang="latex">h_{t}^{l} = \phi(\textbf{W}^{l}h_{t}^{l-1} + \textbf{V}^{l}h_{t-1}^{l} + b^{l})</div>
 * LSTM - http://www.bioinf.jku.at/publications/older/2604.pdf
 <div lang="latex">1+sin(x)^2+3</div>
 * GRU - https://arxiv.org/pdf/1406.1078v3.pdf
