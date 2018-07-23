@@ -20,7 +20,7 @@ Architectures tested include:
 
 * **Peephole LSTM** - https://ieeexplore.ieee.org/document/861302/
 
-&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/plstm.png" width="450" />
+&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/plstm.png" width="450" />
 
 * **UGRNN** - https://arxiv.org/pdf/1611.09913.pdf
 
@@ -32,7 +32,7 @@ Architectures tested include:
 
 * **IndRNN** - https://arxiv.org/pdf/1803.04831.pdf
 
-&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="380" />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="370" />
 
 ## Results
 The following results are were generated using the architectures listed above. \
