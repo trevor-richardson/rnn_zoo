@@ -1,7 +1,8 @@
 # rnn_zoo
-This repository tests various recurrent neural network architectures on baseline datasets SeqMNIST and pMNIST. The network architectures chosen were those deemed to be the most effective currently available.
+This repository tests various recurrent neural network architectures on baseline datasets SeqMNIST and pMNIST. <br/>
+The network architectures chosen were those deemed to be the most effective currently available.
 
-Those tested include:
+The architectures tested include:
 * **RNN**
 
  &nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/rnn.png" width="300" />
