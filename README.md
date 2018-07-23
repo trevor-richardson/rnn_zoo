@@ -4,7 +4,7 @@ Test novel and important recurrent neural network architectures on baseline data
 Architectures tested include:
 * **RNN**
 
- <img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/rnn.png" width="300" />
+ &nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/rnn.png" width="300" />
 
 * **LSTM** - http://www.bioinf.jku.at/publications/older/2604.pdf
 
