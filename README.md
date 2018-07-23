@@ -4,26 +4,35 @@ Test novel and important recurrent neural network architectures on baseline data
 Architectures tested include:
 * RNN
 
-<div lang="latex">
- h_{t}^{l} = \phi(\textbf{W}^{l}h_{t}^{l-1} + \textbf{V}^{l}h_{t-1}^{l} + b^{l})
-</div>
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/rnn.png" width="440" />
 
 * LSTM - http://www.bioinf.jku.at/publications/older/2604.pdf
-<div lang="latex">1+sin(x)^2+3</div>
+
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/lstm.png" width="440" />
+
 * GRU - https://arxiv.org/pdf/1406.1078v3.pdf
-<div lang="latex">1+sin(x)^2+3</div>
+
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/gru.png" width="440" />
+
 * IRNN - https://arxiv.org/abs/1504.00941
-<div lang="latex">1+sin(x)^2+3</div>
+
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/irnn.png" width="440" />
+
 * Peephole LSTM - https://ieeexplore.ieee.org/document/861302/
-<div lang="latex">1+sin(x)^2+3</div>
+
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/plstmrnn.png" width="440" />
+
 * UGRNN - https://arxiv.org/pdf/1611.09913.pdf
-<div lang="latex">1+sin(x)^2+3</div>
+
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/ugrnn.png" width="440" />
+
 * Intersection RNN - https://arxiv.org/pdf/1611.09913.pdf
-<div lang="latex">1+sin(x)^2+3</div>
+
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/intersectionrnn.png" width="440" />
+
 * IndRNN - https://arxiv.org/pdf/1803.04831.pdf
-<div lang="latex">1+sin(x)^2+3</div>
 
-
+<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="440" />
 
 ## Results
 The following results are were generated using the architectures listed above. \
