@@ -26,6 +26,7 @@ from sequential_mnist import SequentialMNIST
 from lstm import LSTM
 from irnn import IRNN
 from gru import GRU
+from indrnn import INDRNN
 from peephole_lstm import Peephole
 from ugrnn import UGRNN
 from intersection_rnn import IntersectionRNN
@@ -114,6 +115,11 @@ def create_model():
                                           layers=args.layers)
     elif args.model_type == 'ugrnn':
         return UGRNN(input_size=dset.input_dimension,
+                                          hidden_size=args.hx,
+                                          output_size=dset.output_dimension,
+                                          layers=args.layers)
+    elif args.model_type == 'indrnn':
+        return INDRNN(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
                                           layers=args.layers)
