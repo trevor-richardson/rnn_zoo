@@ -74,11 +74,11 @@ Hyperparameters used: layers 3, num neurons 50, optimizer Adam, learning rate .0
 
 ### Installing
 
-Update BASE_DIR in config.ini with the absolute path to the current directory.
+Update BASE_DIR in config.ini with the absolute path to the current directory. <br/>
 Packages needed to run the code include:
 
-numpy
-python3
-PyToch
-argparse
-configparser
+* numpy
+* python3
+* PyToch
+* argparse
+* configparser
