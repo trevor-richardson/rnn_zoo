@@ -96,19 +96,19 @@ class IntersectionRNNCell(nn.Module):
         if self.rec_keep_prob:
             h_t_previous = self.rec_dropout(h_t_previous)
 
-        y_in = F.tanh(
+        y_in = torch.tanh(
             torch.mm(X_t, self.W_yin) + torch.mm(h_t_previous, self.U_yin) + self.b_yin #w_f needs to be the previous input shape by the number of hidden neurons
         )
 
-        h_in = F.tanh(
+        h_in = torch.tanh(
             torch.mm(X_t, self.W_hin) + torch.mm(h_t_previous, self.U_hin) + self.b_hin
         )
 
-        g_y = F.sigmoid(
+        g_y = torch.sigmoid(
             torch.mm(X_t, self.W_gy) + torch.mm(h_t_previous, self.U_gy) + self.b_gy
         )
 
-        g_h = F.sigmoid(
+        g_h = torch.sigmoid(
             torch.mm(X_t, self.W_gh) + torch.mm(h_t_previous, self.U_gh) + self.b_gh
         )
 

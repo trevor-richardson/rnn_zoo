@@ -88,15 +88,15 @@ class GRUCell(nn.Module):
             h_t_previous = self.rec_dropout(h_t_previous)
             c_t_previous = self.rec_dropout(c_t_previous)
 
-        z_t = F.sigmoid(
+        z_t = torch.sigmoid(
             torch.mm(X_t, self.W_z) + torch.mm(h_t_previous, self.U_z) + self.b_z.expand_as(h_t_previous)
         )
 
-        r_t = F.sigmoid(
+        r_t = torch.sigmoid(
             torch.mm(X_t, self.W_r) + torch.mm(h_t_previous, self.U_r) + self.b_r.expand_as(h_t_previous)
         )
 
-        h_t = z_t * h_t_previous + ((z_t - 1) * -1) * F.tanh(
+        h_t = z_t * h_t_previous + ((z_t - 1) * -1) * torch.tanh(
             torch.mm(X_t, self.W_h) + torch.mm((r_t * h_t_previous), self.U_h) + self.b_h.expand_as(h_t_previous)
         )
 

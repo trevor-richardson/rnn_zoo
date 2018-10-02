@@ -98,22 +98,22 @@ class PeepholeCell(nn.Module):
             h_t_previous = self.rec_dropout(h_t_previous)
             c_t_previous = self.rec_dropout(c_t_previous)
 
-        f_t = F.sigmoid(
+        f_t = torch.sigmoid(
             torch.mm(X_t, self.W_f) + torch.mm(c_t_previous, self.U_f) + self.b_f
         )
 
 
-        i_t = F.sigmoid(
+        i_t = torch.sigmoid(
             torch.mm(X_t, self.W_i) + torch.mm(c_t_previous, self.U_i) + self.b_i
         )
 
 
-        o_t = F.sigmoid(
+        o_t = torch.sigmoid(
             torch.mm(X_t, self.W_o) + torch.mm(c_t_previous, self.U_o) + self.b_o
         )
 
 
-        c_hat_t = F.tanh(
+        c_hat_t = torch.tanh(
             torch.mm(X_t, self.W_c) + torch.mm(c_t_previous, self.U_c) + self.b_c
         )
 

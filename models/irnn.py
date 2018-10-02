@@ -67,7 +67,7 @@ class IRNNCell(nn.Module):
             h_t_previous = self.rec_dropout(h_t_previous)
             c_t_previous = self.rec_dropout(c_t_previous)
 
-        out = F.relu(
+        out = torch.relu(
             torch.mm(X_t, self.W_x) + torch.mm(h_t_previous, self.U_h) + self.b
         )
 

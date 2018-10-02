@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
 
@@ -101,28 +100,28 @@ class LSTMCell(nn.Module):
             c_t_previous = self.rec_dropout(c_t_previous)
 
 
-        f_t = F.sigmoid(
+        f_t = torch.sigmoid(
             torch.mm(X_t, self.W_f) + torch.mm(h_t_previous, self.U_f) + self.b_f #w_f needs to be the previous input shape by the number of hidden neurons
         )
 
 
-        i_t = F.sigmoid(
+        i_t = torch.sigmoid(
             torch.mm(X_t, self.W_i) + torch.mm(h_t_previous, self.U_i) + self.b_i
         )
 
 
-        o_t = F.sigmoid(
+        o_t = torch.sigmoid(
             torch.mm(X_t, self.W_o) + torch.mm(h_t_previous, self.U_o) + self.b_o
         )
 
 
-        c_hat_t = F.tanh(
+        c_hat_t = torch.tanh(
             torch.mm(X_t, self.W_c) + torch.mm(h_t_previous, self.U_c) + self.b_c
         )
 
         c_t = (f_t * c_t_previous) + (i_t * c_hat_t)
 
-        h_t = o_t * F.tanh(c_t)
+        h_t = o_t * torch.tanh(c_t)
 
         self.states = (h_t, c_t)
         return h_t

@@ -77,11 +77,11 @@ class UGRNNCell(nn.Module):
             h_t_previous = self.rec_dropout(h_t_previous)
 
 
-        g_t = F.sigmoid(
+        g_t = torch.sigmoid(
             torch.mm(X_t, self.W_g) + torch.mm(h_t_previous, self.U_g) + self.b_g #w_f needs to be the previous input shape by the number of hidden neurons
         )
 
-        c_t = F.tanh(
+        c_t = torch.tanh(
             torch.mm(X_t, self.W_c) + torch.mm(h_t_previous, self.U_c) + self.b_c
         )
 

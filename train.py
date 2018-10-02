@@ -79,7 +79,7 @@ random.seed(args.seed)
 
 #Define helper function
 def log_sigmoid(x):
-    return torch.log(F.sigmoid(x))
+    return torch.log(torch.sigmoid(x))
 
 #Load data loader depending on task of interest
 if args.task == 'seqmnist':
@@ -91,7 +91,7 @@ else:
 
 data_loader = torch.utils.data.DataLoader(dset, batch_size=args.batch_size, num_workers=2, shuffle=True)
 activation = nn.LogSoftmax(dim=1)
-criterion = nn.CrossEntropyLoss(size_average=False, reduce=False)
+criterion = nn.CrossEntropyLoss()
 
 #Define deep recurrent neural network
 def create_model():
