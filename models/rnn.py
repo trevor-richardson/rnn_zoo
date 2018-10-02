@@ -21,6 +21,8 @@ class RNNCell(nn.Module):
 
         print("Initializing RNNCell")
         self.hidden_size = hidden_size
+
+        #Initialize weights for RNN cell
         if(weight_init==None):
             self.W_x = nn.Parameter(torch.zeros(input_size, hidden_size))
             self.W_x = nn.init.xavier_normal_(self.W_x)
@@ -38,6 +40,7 @@ class RNNCell(nn.Module):
         self.b = nn.Parameter(torch.zeros(hidden_size))
         self.recurrent_act = recurrent_act
 
+        #Set up dropout layer if requested
         if(drop==None):
             self.keep_prob = False
         else:
@@ -49,16 +52,18 @@ class RNNCell(nn.Module):
             self.rec_keep_prob = True
             self.rec_dropout = nn.Dropout(rec_drop)
 
-
+        #Initialize recurrent states h_t
         self.hidden_state = None
 
     def reset(self, batch_size=1, cuda=True):
+        #Reset recurrent states
         if cuda:
             self.hidden_state = (Variable(torch.randn(batch_size, self.hidden_size)).cuda().double())
         else:
             self.hidden_state = (Variable(torch.randn(batch_size, self.hidden_size)).double())
 
     def forward(self, X_t):
+        #Define forward calculations for inference time
         h_t_previous = self.hidden_state
 
         if self.keep_prob:
@@ -82,6 +87,7 @@ class RNN(nn.Module):
                  layers=1,
                  recurrent_act='tanh'):
         super(RNN, self).__init__()
+        #Initialize deep RNN neural network
 
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -90,24 +96,26 @@ class RNN(nn.Module):
         self.recurrent_act = recurrent_act
         self.use_batchnorm = use_batchnorm
 
-
+        #Initialize individual RNN cells
         self.rnns = nn.ModuleList()
         self.rnns.append(RNNCell(input_size=input_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
 
         for index in range(self.layers-1):
             self.rnns.append(RNNCell(input_size=hidden_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
 
+        #Initialize weights for output linear layer
         self.fc1 = nn.Linear(hidden_size, output_size)
 
         nn.init.xavier_normal_(self.fc1.weight.data)
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
+        #Reset recurrent states for all RNN cells defined
         for index in range(len(self.rnns)):
             self.rnns[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
-
+        #Define forward method for deep RNN neural network
         for index in range(len(self.rnns)):
             x = self.rnns[index](x)
         out = self.fc1(x)

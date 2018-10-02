@@ -19,6 +19,8 @@ class IntersectionRNNCell(nn.Module):
         super(IntersectionRNNCell, self).__init__()
 
         print("Initializing IntersectionRNNCell")
+
+        #Initialize weights for RNN cell
         self.hidden_size = hidden_size
         if(weight_init==None):
             self.W_yin = nn.Parameter(torch.zeros(input_size, input_size))
@@ -63,6 +65,7 @@ class IntersectionRNNCell(nn.Module):
         self.b_gy = nn.Parameter(torch.zeros(input_size))
         self.b_gh = nn.Parameter(torch.zeros(hidden_size))
 
+        #Set up dropout layer if requested
         if(drop==None):
             self.keep_prob = False
         else:
@@ -74,15 +77,18 @@ class IntersectionRNNCell(nn.Module):
             self.rec_keep_prob = True
             self.rec_dropout = nn.Dropout(rec_drop)
 
+        #Initialize recurrent states h_t
         self.states = None
 
     def reset(self, batch_size=1, cuda=True):
+        #Reset recurrent states
         if cuda:
             self.states = (Variable(torch.zeros(batch_size, self.hidden_size)).cuda().double())
         else:
             self.states = (Variable(torch.zeros(batch_size, self.hidden_size)).double())
 
     def forward(self, X_t):
+        #Define forward calculations for inference time
         h_t_previous = self.states
 
         if self.keep_prob:
@@ -121,26 +127,31 @@ class IntersectionRNN(nn.Module):
                  output_size=1,
                  layers=1):
         super(IntersectionRNN, self).__init__()
+        #Initialize deep RNN neural network
 
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
         self.layers = layers
 
+        #Initialize individual RNN+ cells
         self.int_rnns = nn.ModuleList()
         self.int_rnns.append(IntersectionRNNCell(input_size=input_size, hidden_size=hidden_size))
         for index in range(self.layers-1):
             self.int_rnns.append(IntersectionRNNCell(input_size=input_size, hidden_size=hidden_size))
 
+        #Initialize weights for output linear layer
         self.fc1 = nn.Linear(input_size, output_size)
         nn.init.xavier_normal_(self.fc1.weight.data)
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
+        #Reset recurrent states for all RNN cells defined
         for index in range(len(self.int_rnns)):
             self.int_rnns[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
+        #Define forward method for deep RNN neural network
         for index in range(len(self.int_rnns)):
             x = self.int_rnns[index](x)
         out = self.fc1(x)
