@@ -87,7 +87,6 @@ class IRNN(nn.Module):
         self.hidden_size = hidden_size
         self.output_size = output_size
         self.layers = layers
-        self.use_batchnorm = use_batchnorm
 
         #Initialize individual IRNN cells
         self.rnns = nn.ModuleList()

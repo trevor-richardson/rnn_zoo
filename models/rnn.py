@@ -94,7 +94,6 @@ class RNN(nn.Module):
         self.output_size = output_size
         self.layers = layers
         self.recurrent_act = recurrent_act
-        self.use_batchnorm = use_batchnorm
 
         #Initialize individual RNN cells
         self.rnns = nn.ModuleList()

@@ -119,7 +119,7 @@ class PeepholeCell(nn.Module):
 
         c_t = (f_t * c_t_previous) + (i_t * c_hat_t)
 
-        h_t = o_t * F.tanh(c_t)
+        h_t = o_t * torch.tanh(c_t)
 
         self.states = (h_t, c_t)
         return h_t
