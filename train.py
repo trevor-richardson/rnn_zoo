@@ -30,6 +30,7 @@ from indrnn import INDRNN
 from peephole_lstm import Peephole
 from ugrnn import UGRNN
 from intersection_rnn import IntersectionRNN
+from rnn import RNN
 
 parser = argparse.ArgumentParser(description='Nueron Connection')
 parser.add_argument('--lr', type=float, default=1e-5,
@@ -48,8 +49,8 @@ parser.add_argument('--layers', type=int, default=1,
                     help='num recurrent layers (default: 1)')
 parser.add_argument('--batch-size', type=int, default=64,
                     help='training batch size (default: 64)')
-parser.add_argument('--model-type', type=str, default='irnn',
-                    help='lstm, gru, irnn, ugrnn, rnn+, peephole')
+parser.add_argument('--model-type', type=str, default='lstm',
+                    help='rnn, lstm, gru, irnn, ugrnn, rnn+, peephole')
 parser.add_argument('--task', type=str, default='seqmnist',
                     help='seqmnist, pseqmnist')
 parser.add_argument('--sequence-len', type=int, default=784,
@@ -88,6 +89,11 @@ criterion = nn.CrossEntropyLoss(size_average=False, reduce=False)
 def create_model():
     if args.model_type == 'lstm':
         return LSTM(input_size=dset.input_dimension,
+                                          hidden_size=args.hx,
+                                          output_size=dset.output_dimension,
+                                          layers=args.layers)
+    elif args.model_type == 'rnn':
+        return RNN(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
                                           layers=args.layers)
