@@ -57,12 +57,12 @@ class GRUCell(nn.Module):
         self.b_h = nn.Parameter(torch.zeros(hidden_size))
 
         #Set up dropout layer if requested
-        if(drop==None):
+        if(drop==0):
             self.keep_prob = False
         else:
             self.keep_prob = True
             self.dropout = nn.Dropout(drop)
-        if(rec_drop == None):
+        if(rec_drop == 0):
             self.rec_keep_prob = False
         else:
             self.rec_keep_prob = True
@@ -86,7 +86,6 @@ class GRUCell(nn.Module):
             X_t = self.dropout(X_t)
         if self.rec_keep_prob:
             h_t_previous = self.rec_dropout(h_t_previous)
-            c_t_previous = self.rec_dropout(c_t_previous)
 
         z_t = torch.sigmoid(
             torch.mm(X_t, self.W_z) + torch.mm(h_t_previous, self.U_z) + self.b_z.expand_as(h_t_previous)
@@ -109,7 +108,9 @@ class GRU(nn.Module):
                  input_size=1,
                  hidden_size=64,
                  output_size=1,
-                 layers=1):
+                 layers=1,
+                 drop=None,
+                 rec_drop=None):
         super(GRU, self).__init__()
         #Initialize deep RNN neural network
 
@@ -120,10 +121,10 @@ class GRU(nn.Module):
 
         #Initialize individual GRU cells
         self.grus = nn.ModuleList()
-        self.grus.append(GRUCell(input_size=input_size, hidden_size=hidden_size))
+        self.grus.append(GRUCell(input_size=input_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         for index in range(self.layers-1):
-            self.grus.append(GRUCell(input_size=hidden_size, hidden_size=hidden_size))
+            self.grus.append(GRUCell(input_size=hidden_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         #Initialize weights for output linear layer
         self.fc1 = nn.Linear(hidden_size, output_size)

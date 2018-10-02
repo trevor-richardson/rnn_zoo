@@ -12,7 +12,6 @@ Custom RNN in PyTorch
 class RNNCell(nn.Module):
     def __init__(self, input_size,
                     hidden_size,
-                    recurrent_act='relu',
                     weight_init=None,
                     reccurent_weight_init=None,
                     drop=None,
@@ -38,15 +37,14 @@ class RNNCell(nn.Module):
             self.U_h = reccurent_weight_init(self.U_h)
 
         self.b = nn.Parameter(torch.zeros(hidden_size))
-        self.recurrent_act = recurrent_act
 
         #Set up dropout layer if requested
-        if(drop==None):
+        if(drop==0):
             self.keep_prob = False
         else:
             self.keep_prob = True
             self.dropout = nn.Dropout(drop)
-        if(rec_drop == None):
+        if(rec_drop == 0):
             self.rec_keep_prob = False
         else:
             self.rec_keep_prob = True
@@ -70,7 +68,6 @@ class RNNCell(nn.Module):
             X_t = self.dropout(X_t)
         if self.rec_keep_prob:
             h_t_previous = self.rec_dropout(h_t_previous)
-            c_t_previous = self.rec_dropout(c_t_previous)
 
         out = torch.tanh(
             torch.mm(X_t, self.W_x) + torch.mm(h_t_previous, self.U_h) + self.b
@@ -85,7 +82,8 @@ class RNN(nn.Module):
                  hidden_size=64,
                  output_size=1,
                  layers=1,
-                 recurrent_act='tanh'):
+                 drop=None,
+                 rec_drop=None):
         super(RNN, self).__init__()
         #Initialize deep RNN neural network
 
@@ -93,14 +91,13 @@ class RNN(nn.Module):
         self.hidden_size = hidden_size
         self.output_size = output_size
         self.layers = layers
-        self.recurrent_act = recurrent_act
 
         #Initialize individual RNN cells
         self.rnns = nn.ModuleList()
-        self.rnns.append(RNNCell(input_size=input_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
+        self.rnns.append(RNNCell(input_size=input_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         for index in range(self.layers-1):
-            self.rnns.append(RNNCell(input_size=hidden_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
+            self.rnns.append(RNNCell(input_size=hidden_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         #Initialize weights for output linear layer
         self.fc1 = nn.Linear(hidden_size, output_size)

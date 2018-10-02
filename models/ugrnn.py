@@ -47,12 +47,12 @@ class UGRNNCell(nn.Module):
         self.b_c = nn.Parameter(torch.zeros(hidden_size))
 
         #Set up dropout layer if requested
-        if(drop==None):
+        if(drop==0):
             self.keep_prob = False
         else:
             self.keep_prob = True
             self.dropout = nn.Dropout(drop)
-        if(rec_drop == None):
+        if(rec_drop == 0):
             self.rec_keep_prob = False
         else:
             self.rec_keep_prob = True
@@ -96,7 +96,9 @@ class UGRNN(nn.Module):
                  input_size=1,
                  hidden_size=64,
                  output_size=1,
-                 layers=1):
+                 layers=1,
+                 drop=None,
+                 rec_drop=None):
         super(UGRNN, self).__init__()
         #Initialize deep RNN neural network
 
@@ -107,10 +109,10 @@ class UGRNN(nn.Module):
 
         #Initialize individual UGRNN cells
         self.ugrnns = nn.ModuleList()
-        self.ugrnns.append(UGRNNCell(input_size=input_size, hidden_size=hidden_size))
+        self.ugrnns.append(UGRNNCell(input_size=input_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         for index in range(self.layers-1):
-            self.ugrnns.append(UGRNNCell(input_size=hidden_size, hidden_size=hidden_size))
+            self.ugrnns.append(UGRNNCell(input_size=hidden_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         #Initialize weights for output linear layer
         self.fc1 = nn.Linear(hidden_size, output_size)

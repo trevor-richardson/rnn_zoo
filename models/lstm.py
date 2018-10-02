@@ -68,12 +68,12 @@ class LSTMCell(nn.Module):
         self.b_c = nn.Parameter(torch.zeros(hidden_size))
 
         #Set up dropout layer if requested
-        if(drop==None):
+        if(drop==0):
             self.keep_prob = False
         else:
             self.keep_prob = True
             self.dropout = nn.Dropout(drop)
-        if(rec_drop == None):
+        if(rec_drop == 0):
             self.rec_keep_prob = False
         else:
             self.rec_keep_prob = True
@@ -132,7 +132,9 @@ class LSTM(nn.Module):
                  input_size=1,
                  hidden_size=64,
                  output_size=1,
-                 layers=1):
+                 layers=1,
+                 drop=None,
+                 rec_drop=None):
         super(LSTM, self).__init__()
         #Initialize deep RNN neural network
 
@@ -143,10 +145,10 @@ class LSTM(nn.Module):
 
         #Initialize individual LSTM cells
         self.lstms = nn.ModuleList()
-        self.lstms.append(LSTMCell(input_size=input_size, hidden_size=hidden_size))
+        self.lstms.append(LSTMCell(input_size=input_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         for index in range(self.layers-1):
-            self.lstms.append(LSTMCell(input_size=hidden_size, hidden_size=hidden_size))
+            self.lstms.append(LSTMCell(input_size=hidden_size, hidden_size=hidden_size, drop=drop, rec_drop=rec_drop))
 
         #Initialize weights for output linear layer
         self.fc1 = nn.Linear(hidden_size, output_size)

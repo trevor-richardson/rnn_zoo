@@ -38,10 +38,6 @@ from rnn import RNN
 parser = argparse.ArgumentParser(description='Nueron Connection')
 parser.add_argument('--lr', type=float, default=1e-5,
                     help='learning rate (default: 1e-4)')
-parser.add_argument('--momentum', type=float, default=0.9,
-                    help='RMSprop optimizer momentum (default: 0.9)')
-parser.add_argument('--alpha', type=float, default=0.95,
-                    help='RMSprop alpha (default: 0.95)')
 parser.add_argument('--epochs', type=int, default=100,
                     help='num training epochs (default: 100)')
 parser.add_argument('--seed', type=int, default=1,
@@ -56,10 +52,12 @@ parser.add_argument('--model-type', type=str, default='lstm',
                     help='rnn, lstm, gru, irnn, ugrnn, rnn+, peephole')
 parser.add_argument('--task', type=str, default='seqmnist',
                     help='seqmnist, pseqmnist')
-parser.add_argument('--sequence-len', type=int, default=784,
-                    help='mem seq len (default: 784)')
 parser.add_argument('--cuda', action='store_true', default=True,
                     help='use gpu')
+parser.add_argument('--drop', type=float, default=0,
+                    help='Drop input connections in input weight matrix (Default:0)')
+parser.add_argument('--rec_drop', type=float, default=0,
+                    help='Drop recurrent connections in recurrent weight matrix (Default:0)')
 
 args = parser.parse_args()
 
@@ -99,39 +97,53 @@ def create_model():
         return LSTM(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
-                                          layers=args.layers)
+                                          layers=args.layers,
+                                          drop=args.drop,
+                                          rec_drop=args.rec_drop)
     elif args.model_type == 'rnn':
         return RNN(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
-                                          layers=args.layers)
+                                          layers=args.layers,
+                                          drop=args.drop,
+                                          rec_drop=args.rec_drop)
     elif args.model_type == 'irnn':
         return IRNN(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
-                                          layers=args.layers)
+                                          layers=args.layers,
+                                          drop=args.drop,
+                                          rec_drop=args.rec_drop)
     elif args.model_type == 'gru':
         return GRU(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
-                                          layers=args.layers)
+                                          layers=args.layers,
+                                          drop=args.drop,
+                                          rec_drop=args.rec_drop)
     elif args.model_type == 'rnn+':
         if args.layers == 1:
             args.layers = 2
         return IntersectionRNN(input_size=dset.input_dimension,
                                       hidden_size=args.hx,
                                       output_size=dset.output_dimension,
-                                      layers=args.layers)
+                                      layers=args.layers,
+                                      drop=args.drop,
+                                      rec_drop=args.rec_drop)
     elif args.model_type == 'peephole':
         return Peephole(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
-                                          layers=args.layers)
+                                          layers=args.layers,
+                                          drop=args.drop,
+                                          rec_drop=args.rec_drop)
     elif args.model_type == 'ugrnn':
         return UGRNN(input_size=dset.input_dimension,
                                           hidden_size=args.hx,
                                           output_size=dset.output_dimension,
-                                          layers=args.layers)
+                                          layers=args.layers,
+                                          drop=args.drop,
+                                          rec_drop=args.rec_drop)
     else:
         raise Exception
 
