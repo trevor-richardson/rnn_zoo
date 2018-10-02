@@ -93,7 +93,7 @@ class PeepholeCell(nn.Module):
             c_t_previous = self.rec_dropout(c_t_previous)
 
         f_t = F.sigmoid(
-            torch.mm(X_t, self.W_f) + torch.mm(c_t_previous, self.U_f) + self.b_f #w_f needs to be the previous input shape by the number of hidden neurons
+            torch.mm(X_t, self.W_f) + torch.mm(c_t_previous, self.U_f) + self.b_f
         )
 
 
@@ -135,19 +135,20 @@ class Peephole(nn.Module):
         self.lstms = nn.ModuleList()
         self.lstms.append(PeepholeCell(input_size=input_size, hidden_size=hidden_size))
 
-        for i in range(self.layers-1):
+        for index in range(self.layers-1):
             self.lstms.append(PeepholeCell(input_size=hidden_size, hidden_size=hidden_size))
+
         self.fc1 = nn.Linear(hidden_size, output_size)
 
         nn.init.xavier_normal_(self.fc1.weight.data)
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
-        for i in range(len(self.lstms)):
-            self.lstms[i].reset(batch_size=batch_size, cuda=cuda)
+        for index in range(len(self.lstms)):
+            self.lstms[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
-        for i in range(len(self.lstms)):
-            x = self.lstms[i](x)
-        o = self.fc1(x)
-        return o
+        for index in range(len(self.lstms)):
+            x = self.lstms[index](x)
+        out = self.fc1(x)
+        return out

@@ -81,7 +81,6 @@ class UGRNNCell(nn.Module):
 
         h_t = g_t * h_t_previous + ((g_t - 1) * -1) * c_t
 
-
         self.states = h_t
         return h_t
 
@@ -101,19 +100,21 @@ class UGRNN(nn.Module):
 
         self.ugrnns = nn.ModuleList()
         self.ugrnns.append(UGRNNCell(input_size=input_size, hidden_size=hidden_size))
-        for i in range(self.layers-1):
+
+        for index in range(self.layers-1):
             self.ugrnns.append(UGRNNCell(input_size=hidden_size, hidden_size=hidden_size))
+
         self.fc1 = nn.Linear(hidden_size, output_size)
 
         nn.init.xavier_normal_(self.fc1.weight.data)
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
-        for i in range(len(self.ugrnns)):
-            self.ugrnns[i].reset(batch_size=batch_size, cuda=cuda)
+        for index in range(len(self.ugrnns)):
+            self.ugrnns[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
-        for i in range(len(self.ugrnns)):
-            x = self.ugrnns[i](x)
-        o = self.fc1(x)
-        return o
+        for index in range(len(self.ugrnns)):
+            x = self.ugrnns[index](x)
+        out = self.fc1(x)
+        return out

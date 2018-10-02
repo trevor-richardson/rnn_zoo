@@ -28,8 +28,6 @@ class RNNCell(nn.Module):
             self.W_x = nn.Parameter(torch.zeros(input_size, hidden_size))
             self.W_x = weight_init(self.W_x)
 
-        #Have to initialize to identity matrix
-        self.U_h = torch.nn.Parameter(torch.eye(hidden_size))
         if(reccurent_weight_init==None):
             self.U_h = nn.Parameter(torch.zeros(hidden_size, hidden_size))
             self.U_h = nn.init.xavier_normal_(self.U_h)
@@ -82,8 +80,7 @@ class RNN(nn.Module):
                  hidden_size=64,
                  output_size=1,
                  layers=1,
-                 recurrent_act='tanh',
-                 use_batchnorm=False):
+                 recurrent_act='tanh'):
         super(RNN, self).__init__()
 
         self.input_size = input_size
@@ -96,21 +93,23 @@ class RNN(nn.Module):
 
         self.rnns = nn.ModuleList()
         self.rnns.append(RNNCell(input_size=input_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
-        for i in range(self.layers-1):
+
+        for index in range(self.layers-1):
             self.rnns.append(RNNCell(input_size=hidden_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
+
         self.fc1 = nn.Linear(hidden_size, output_size)
 
         nn.init.xavier_normal_(self.fc1.weight.data)
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
-        for i in range(len(self.rnns)):
-            self.rnns[i].reset(batch_size=batch_size, cuda=cuda)
+        for index in range(len(self.rnns)):
+            self.rnns[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
 
-        for i in range(len(self.rnns)):
-            x = self.rnns[i](x)
-        o = self.fc1(x)
+        for index in range(len(self.rnns)):
+            x = self.rnns[index](x)
+        out = self.fc1(x)
 
-        return o
+        return out

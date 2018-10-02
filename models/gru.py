@@ -82,7 +82,7 @@ class GRUCell(nn.Module):
             c_t_previous = self.rec_dropout(c_t_previous)
 
         z_t = F.sigmoid(
-            torch.mm(X_t, self.W_z) + torch.mm(h_t_previous, self.U_z) + self.b_z.expand_as(h_t_previous) #W_z needs to be the previous input shape by the number of hidden neurons
+            torch.mm(X_t, self.W_z) + torch.mm(h_t_previous, self.U_z) + self.b_z.expand_as(h_t_previous)
         )
 
         r_t = F.sigmoid(
@@ -112,7 +112,8 @@ class GRU(nn.Module):
 
         self.grus = nn.ModuleList()
         self.grus.append(GRUCell(input_size=input_size, hidden_size=hidden_size))
-        for i in range(self.layers-1):
+
+        for index in range(self.layers-1):
             self.grus.append(GRUCell(input_size=hidden_size, hidden_size=hidden_size))
 
         self.fc1 = nn.Linear(hidden_size, output_size)
@@ -120,11 +121,11 @@ class GRU(nn.Module):
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
-        for i in range(len(self.grus)):
-            self.grus[i].reset(batch_size=batch_size, cuda=cuda)
+        for index in range(len(self.grus)):
+            self.grus[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
-        for i in range(len(self.grus)):
-            x = self.grus[i](x)
-        o = self.fc1(x)
-        return o
+        for index in range(len(self.grus)):
+            x = self.grus[index](x)
+        out = self.fc1(x)
+        return out

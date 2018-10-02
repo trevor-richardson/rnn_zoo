@@ -14,10 +14,6 @@ torch.manual_seed(seed)
 np.random.seed(seed)
 random.seed(seed)
 
-def view_mnist_image(image):
-    plt.imshow(image)
-    plt.show()
-
 class SequentialMNIST(Dataset):
 
     MODE_TRAIN = 0
@@ -28,6 +24,7 @@ class SequentialMNIST(Dataset):
         self.mode = mode
         self.pixel_wise = pixel_wise
         self.permute = permute
+
         if self.permute:
             self.permute_ind = torch.from_numpy(np.random.permutation(784)).long()
 
@@ -40,7 +37,6 @@ class SequentialMNIST(Dataset):
             transforms.ToTensor(),
         ])
 
-        # shuffle data
         self.train_data = self.all_data.train_data
         self.train_labels = self.all_data.train_labels
         perm = torch.randperm(len(self.all_data))
@@ -87,11 +83,9 @@ class SequentialMNIST(Dataset):
         if self.mode == SequentialMNIST.MODE_TRAIN:
             inp = self.data_train[i]
             out = self.data_train_labels[i]
-            # inp = inp.view(-1, 1)
         elif self.mode == SequentialMNIST.MODE_VAL:
             inp = self.data_val[i]
             out = self.data_val_labels[i]
-            # inp = inp.view(-1, 1)
         else:
             inp, out = self.data_test[i]
             inp = inp.view(-1, 1)
@@ -103,7 +97,6 @@ class SequentialMNIST(Dataset):
         inp = inp.view(-1, 1)
         if self.permute:
             inp = inp[self.permute_ind]
-
 
         return inp, out
 

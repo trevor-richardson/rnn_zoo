@@ -129,7 +129,7 @@ class IntersectionRNN(nn.Module):
 
         self.int_rnns = nn.ModuleList()
         self.int_rnns.append(IntersectionRNNCell(input_size=input_size, hidden_size=hidden_size))
-        for i in range(self.layers-1):
+        for index in range(self.layers-1):
             self.int_rnns.append(IntersectionRNNCell(input_size=input_size, hidden_size=hidden_size))
 
         self.fc1 = nn.Linear(input_size, output_size)
@@ -137,11 +137,11 @@ class IntersectionRNN(nn.Module):
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
-        for i in range(len(self.int_rnns)):
-            self.int_rnns[i].reset(batch_size=batch_size, cuda=cuda)
+        for index in range(len(self.int_rnns)):
+            self.int_rnns[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
-        for i in range(len(self.int_rnns)):
-            x = self.int_rnns[i](x)
-        o = self.fc1(x)
-        return o
+        for index in range(len(self.int_rnns)):
+            x = self.int_rnns[index](x)
+        out = self.fc1(x)
+        return out

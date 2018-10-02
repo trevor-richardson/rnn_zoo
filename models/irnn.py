@@ -13,7 +13,6 @@ https://arxiv.org/pdf/1504.00941.pdf
 class IRNNCell(nn.Module):
     def __init__(self, input_size,
                     hidden_size,
-                    recurrent_act='relu',
                     weight_init=None,
                     reccurent_weight_init=None,
                     drop=None,
@@ -22,6 +21,7 @@ class IRNNCell(nn.Module):
 
         print("Initializing IRNNCell")
         self.hidden_size = hidden_size
+
         if(weight_init==None):
             self.W_x = nn.Parameter(torch.zeros(input_size, hidden_size))
             self.W_x = nn.init.xavier_normal_(self.W_x)
@@ -33,7 +33,6 @@ class IRNNCell(nn.Module):
         self.U_h = torch.nn.Parameter(torch.eye(hidden_size))
 
         self.b = nn.Parameter(torch.zeros(hidden_size))
-        self.recurrent_act = recurrent_act
 
         if(drop==None):
             self.keep_prob = False
@@ -76,36 +75,33 @@ class IRNN(nn.Module):
                  input_size=1,
                  hidden_size=64,
                  output_size=1,
-                 layers=1,
-                 recurrent_act='tanh',
-                 use_batchnorm=False):
+                 layers=1):
         super(IRNN, self).__init__()
 
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
         self.layers = layers
-        self.recurrent_act = recurrent_act
         self.use_batchnorm = use_batchnorm
 
 
         self.rnns = nn.ModuleList()
-        self.rnns.append(IRNNCell(input_size=input_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
-        for i in range(self.layers-1):
-            self.rnns.append(IRNNCell(input_size=hidden_size, hidden_size=hidden_size, recurrent_act=self.recurrent_act))
+        self.rnns.append(IRNNCell(input_size=input_size, hidden_size=hidden_size))
+        for index in range(self.layers-1):
+            self.rnns.append(IRNNCell(input_size=hidden_size, hidden_size=hidden_size))
         self.fc1 = nn.Linear(hidden_size, output_size)
 
         nn.init.xavier_normal_(self.fc1.weight.data)
         nn.init.constant_(self.fc1.bias.data, 0)
 
     def reset(self, batch_size=1, cuda=True):
-        for i in range(len(self.rnns)):
-            self.rnns[i].reset(batch_size=batch_size, cuda=cuda)
+        for index in range(len(self.rnns)):
+            self.rnns[index].reset(batch_size=batch_size, cuda=cuda)
 
     def forward(self, x):
 
-        for i in range(len(self.rnns)):
-            x = self.rnns[i](x)
-        o = self.fc1(x)
+        for index in range(len(self.rnns)):
+            x = self.rnns[index](x)
+        out = self.fc1(x)
 
-        return o
+        return out
