@@ -1,3 +1,5 @@
+from __future__ import division
+
 import argparse
 import random
 import sys
@@ -31,6 +33,8 @@ from ugrnn import UGRNN
 from intersection_rnn import IntersectionRNN
 from rnn import RNN
 
+
+#Define global variables and arguments for experimentation
 parser = argparse.ArgumentParser(description='Nueron Connection')
 parser.add_argument('--lr', type=float, default=1e-5,
                     help='learning rate (default: 1e-4)')
@@ -58,10 +62,13 @@ parser.add_argument('--cuda', action='store_true', default=True,
                     help='use gpu')
 
 args = parser.parse_args()
+
+#Check if cuda is available
 args.cuda = args.cuda and torch.cuda.is_available()
 if args.cuda:
     print("Using GPU Acceleration")
 
+#Set experimentation seed
 torch.manual_seed(args.seed)
 
 if args.cuda:
@@ -70,10 +77,11 @@ if args.cuda:
 np.random.seed(args.seed)
 random.seed(args.seed)
 
-
+#Define helper function
 def log_sigmoid(x):
     return torch.log(F.sigmoid(x))
 
+#Load data loader depending on task of interest
 if args.task == 'seqmnist':
     print("Loading SeqMNIST")
     dset = SequentialMNIST()
@@ -85,6 +93,7 @@ data_loader = torch.utils.data.DataLoader(dset, batch_size=args.batch_size, num_
 activation = nn.LogSoftmax(dim=1)
 criterion = nn.CrossEntropyLoss(size_average=False, reduce=False)
 
+#Define deep recurrent neural network
 def create_model():
     if args.model_type == 'lstm':
         return LSTM(input_size=dset.input_dimension,
@@ -138,7 +147,8 @@ if args.cuda:
 
 optimizer = optim.RMSprop(model.parameters(), lr=args.lr)
 
-def run_sequence(seq, target):
+#Execute neural network on entire input sequence
+def execute_sequence(seq, target):
     predicted_list = []
     y_list = []
     model.reset(batch_size=seq.size(0), cuda=args.cuda)
@@ -155,6 +165,7 @@ def run_sequence(seq, target):
 
     return predicted_list, y_list
 
+#Train neural network
 def train(epoch):
     model.train()
     dset.train()
@@ -164,12 +175,13 @@ def train(epoch):
     n_correct = 0
     n_possible = 0
 
+    #Run batch gradient update
     for batch_idx, (data, target) in enumerate(data_loader):
         if args.cuda:
             data, target = data.cuda().double(), target.cuda().double()
         data, target = Variable(data), Variable(target)
         optimizer.zero_grad()
-        predicted_list, y_list = run_sequence(data, target)
+        predicted_list, y_list = execute_sequence(data, target)
 
         pred = predicted_list[-1]
         y_ = y_list[-1].long()
@@ -196,17 +208,18 @@ def validate(epoch):
     n_possible = 0
     steps = 0
 
+    #Run batch inference
     for batch_idx, (data, target) in enumerate(data_loader):
 
         if args.cuda:
             data, target = data.cuda().double(), target.cuda().double()
         with torch.no_grad():
             data, target = Variable(data), Variable(target)
-            predicted_list, y_list = run_sequence(data, target)
+            predicted_list, y_list = execute_sequence(data, target)
 
         pred = predicted_list[-1]
         y_ = y_list[-1].long()
-        prediction = pred.data.max(1, keepdim=True)[1].long() # get the index of the max log-probability
+        prediction = pred.data.max(1, keepdim=True)[1].long() #Index of the max log-probability
         n_correct += prediction.eq(y_.data.view_as(prediction)).sum().cpu().numpy()
         n_possible += int(prediction.shape[0])
         loss = F.nll_loss(pred, y_)
@@ -214,21 +227,20 @@ def validate(epoch):
         steps += 1
         total_loss += loss.cpu().data.numpy()
 
-        optimizer.zero_grad()
-
     print("Validation Acc ", n_correct/n_possible)
     return total_loss / steps
 
+#General training script logic
 def run():
     best_val_loss = np.inf
     for epoch in range(args.epochs):
         print("\n\n**********************************************************")
         tim = time.time()
         train(epoch)
-        val_loss = validate(epoch)
+        with torch.no_grad():
+            val_loss = validate(epoch)
         print ("Val Loss (epoch", epoch, "): ", val_loss)
         print("Epoch time: ", time.time() - tim)
-
 
 if __name__ == "__main__":
     run()

@@ -31,9 +31,6 @@ Architectures tested include:
 
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/intersectionrnn.png" width="370" />
 
-* **IndRNN** - https://arxiv.org/pdf/1803.04831.pdf
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/trevor-richardson/rnn_zoo/blob/master/results/indrnn.png" width="370" />
 
 ## Results
 The following results are were generated using the architectures listed above. \
@@ -78,7 +75,7 @@ Update BASE_DIR in config.ini with the absolute path to the current directory. <
 Packages needed to run the code include:
 
 * numpy
-* python3
+* python
 * PyToch
 * argparse
 * configparser
